@@ -17,9 +17,16 @@ class ViewController: UIViewController, UITableViewDataSource {
 
         tableView.dataSource = self
         fetchPosts()
-
+        
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue",
+           let detailVC = segue.destination as? DetailViewController,
+           let indexPath = tableView.indexPathForSelectedRow {
+            detailVC.post = posts[indexPath.row]
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
